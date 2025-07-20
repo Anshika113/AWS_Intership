@@ -55,6 +55,6 @@ This project was carried out using the **AWS Free Tier** and is aimed at masteri
 
 ```bash
 aws-s3-project/
-├── 📄 README.md               # This documentation
-├── 📄 S3_Project_Report.pdf   # Detailed step-by-step project walkthrough
-└── 📁 screenshots/            # (Optional) Images for hosting/demo
+├── 📄 README.md               
+├── 📄 S3_Project_Report.pdf   
+└── 📁 screenshots/            
