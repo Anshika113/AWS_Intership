@@ -38,4 +38,4 @@ This project was completed as part of my **AWS Internship** and showcases my han
 │
 ├── 📄 README.md
 ├── 📄 AWS_Project_Report.pdf
-└── 📁 screenshots/ (optional: if you want to add connection setup/images)
+└── 📁 screenshots
