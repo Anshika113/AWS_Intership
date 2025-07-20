@@ -1,133 +1,294 @@
-Linux Commands
-Introduction:
-In AWS, especially when working with EC2 Linux instances, Linux commands are essential for managing and interacting with the virtual server environment. After connecting to a Linux instance via SSH, users use Linux commands to perform tasks like:
-Navigating directories (cd, ls)
-Managing files (cp, mv, rm, nano, vim)
-Installing software (yum, apt-get)
-Monitoring system performance (top, htop, df, free)
-Managing permissions and users (chmod, chown, adduser)
-Starting and stopping services (systemctl, service)
-Transferring files (scp, rsync)
-Running scripts and automating tasks (bash, cron)
+# 🐧 Linux Commands in AWS EC2 Instance
+
+## 📘 Introduction
+
+In Amazon Web Services (AWS), Linux commands are essential for managing and interacting with EC2 instances—virtual machines running in the cloud. After connecting to a Linux instance via SSH, users use Linux commands to perform tasks like:
+
+* Navigating directories (`cd`, `ls`)
+* Managing files (`cp`, `mv`, `rm`, `nano`, `vim`)
+* Installing software (`yum`, `apt-get`)
+* Monitoring system performance (`top`, `htop`, `df`, `free`)
+* Managing permissions and users (`chmod`, `chown`, `adduser`)
+* Starting and stopping services (`systemctl`, `service`)
+* Transferring files (`scp`, `rsync`)
+* Running scripts and automating tasks (`bash`, `cron`)
+
 These commands enable users to configure servers, deploy applications, manage storage, and handle system operations—all directly within the cloud environment.
-Step by Step Instructions:
-Step 1:
-Go to “AWS Management Console” and search “EC2”.
 
-The “EC2 Dashboard” will open.
-Go to “Instance”.
-Click on “Launch Instance”.
+---
 
-Type Server name.
+## 🛠️ Step-by-Step Instructions
 
-Select “Amazon Linux aws”.
+### 🔹 Step 1: Launch EC2 Instance
 
-Select “t2.micro” instance type.
-Select key pair.
+* Go to **AWS Management Console** and search **EC2**.
+* The **EC2 Dashboard** will open.
+* Go to **Instances** → Click on **Launch Instance**.
+* Type server name.
+* Select **Amazon Linux AWS**.
+* Choose instance type: `t2.micro`.
+* Select a key pair.
+* In Network Settings, allow **HTTP** and **HTTPS**.
+* Click **Launch Instance**.
+* Wait until the instance state goes from `Pending` to `Running`.
+* Select the instance → click **Connect**.
+* Then click **Connect** in the popup.
+* Change user:
 
-In Network Setting, Allow https and https.
+```bash
+sudo su
+```
 
-Click on “Launch Instance”.
+* Update system:
 
-Wait until the instance state goes from “Pending” to “Running”.
+```bash
+yum update -y
+```
 
+* Install Apache:
 
-Now, Select the server and then click on “Connect”.
+```bash
+yum install httpd -y
+```
 
-Then click on connect.
+* Check Apache status:
 
-Change user with the help of “sudo su” command.
-Then for check update type “yum update -y”.
+```bash
+systemctl status httpd
+```
 
-For installation type “yum install httpd -y”
+* If it's inactive, start it:
 
-Whether package is start or stop you have to type command “systemctl status httpd”.
+```bash
+systemctl start httpd
+```
 
-It shows that “inactive(dead)”.
-For Starting package, type “systemctl start httpd”.
+* Navigate to web root:
 
-For html, type command “cd /var/www/html”.
+```bash
+cd /var/www/html
+```
 
-For typing the text, type “cat >index.html” and then type the message, after this press “Ctrl+ D” for exit.
+* Create HTML file:
 
-For Creating file, “cat file1” or “cat > file1” and type something after this type “Ctrl+ D”.
+```bash
+cat > index.html
+# Type content then press Ctrl + D to save
+```
 
-For read, type “cat file1” command.
+---
 
-For edit more line type “cat >> file1” command.
+### 📁 File and Directory Commands
 
-For creating multiples files, type “touch file{2..5}” command.
-For check file, type “ls” command.
+* Create a file:
 
-For hidden file or dot file, type “ls-a” command. It stand for list all.
+```bash
+cat > file1
+# Type something then Ctrl + D
+```
 
-For long list, type “ll” command.
+* Read a file:
 
-In long list, for check hidden or dot file type “ll -a” command.
+```bash
+cat file1
+```
 
-For remove file, type “rm file2” command. It asks permission “remove regular empty file ‘file2’?” type “y”.
+* Append to a file:
 
-If you don’t want permission to remove file type “rm -f file3” command. f stands for forcefully.
+```bash
+cat >> file1
+```
 
-For deleting internal files, type “rm -rvf file4” command. rvf stands for “recursive verbose forcefully” and it shows “removed”.
+* Create multiple files:
 
-For removing all files with the name of ‘file’, type “rm -rvf file*”.
+```bash
+touch file{2..5}
+```
 
-For creating directory, type “mkdir my” command and then “my” name directory created.
+* List files:
 
-For creating internal file in “my” type “mkdir my/abc” command.
+```bash
+ls
+```
 
-For go to internal file of my, type “cd my/” command.
+* List all including hidden:
 
-For typing internal file type “cat > ql” command where ql is file.
+```bash
+ls -a
+```
 
+* Long list:
 
+```bash
+ll
+```
 
-For going one step back, type “cd ..” command.
+* Long list including hidden:
 
-Type “ll -a” command where you see those files which start from ‘d’ means ‘directory’ and ‘l’ means ‘list’ and ‘-‘ means ‘file’.
+```bash
+ll -a
+```
 
-For going to ‘block’, type “cd /dev/block” command.
+* Delete file:
 
-For going to ‘bin’, type “cd ../../bin”.
+```bash
+rm file2
+# Type 'y' when asked
+```
 
-If you forget your current location, type “pwd” command.
+* Force delete:
 
-For check list in, type “ls /bin” command.
+```bash
+rm -f file3
+```
 
-For adding user, type “useradd user1” command where ‘user1’ is user name.
+* Delete folder/files recursively and forcefully:
 
-For switching user, type “su user1” command.
+```bash
+rm -rvf file4
+```
 
-For update using vim:
-Create file type “touch file1” command.
-For typing, type “cat >file1” command.
-For check, type “cat file1” command.
-For update, type “vim file1” command.
+* Delete all matching pattern:
 
-For insert, type ‘i’ from keyboard.
+```bash
+rm -rvf file*
+```
 
-For exit, click on ‘esc’ from keyboard.
-For save, type ‘:’.
-For write, type ‘w’ from keyboard.
-For quit, type ‘q’ from keyboard.
+* Create directory:
 
+```bash
+mkdir my
+```
 
-Then see updated version.
+* Create subdirectory:
 
+```bash
+mkdir my/abc
+```
 
+* Navigate:
 
+```bash
+cd my/
+cd ..
+```
 
+* Inside directory create file:
 
+```bash
+cat > ql
+```
 
-For changing file permission:
-Only execution permission, type “chmod 111 file1” command. ‘x’ stands for ‘execute’.
+---
 
-Only write permission, type “chmod 222 file1” command. ‘w’ stands for ‘write’.
+### 🔹 File Navigation & Exploration
 
-Only read permission, type “chmod 444 file1” command. ‘r’ stands for ‘read’.
+* Check current location:
 
-Only all permission, type “chmod 777 file1” command. ‘rwx’ stands for ‘read write execution’.
+```bash
+pwd
+```
 
-For copy, type file name with “cp”.
-For move, type file name with “mv”.
+* Navigate to specific folders:
+
+```bash
+cd /dev/block
+cd ../../bin
+```
+
+* List system binaries:
+
+```bash
+ls /bin
+```
+
+---
+
+### 🔹 User Management
+
+* Add user:
+
+```bash
+useradd user1
+```
+
+* Switch user:
+
+```bash
+su user1
+```
+
+---
+
+### 🔹 Step: Using Vim to Edit Files
+
+* Create file:
+
+```bash
+touch file1
+```
+
+* Write to it:
+
+```bash
+cat > file1
+```
+
+* Check content:
+
+```bash
+cat file1
+```
+
+* Edit using Vim:
+
+```bash
+vim file1
+# Press 'i' to insert
+# Press 'Esc' to exit insert mode
+# Type ':wq' to write and quit
+```
+
+---
+
+### 🔹 Step: File Permissions
+
+* Execution only:
+
+```bash
+chmod 111 file1
+```
+
+* Write only:
+
+```bash
+chmod 222 file1
+```
+
+* Read only:
+
+```bash
+chmod 444 file1
+```
+
+* Full access:
+
+```bash
+chmod 777 file1
+```
+
+---
+
+### 🔹 Copy/Move Operations
+
+* Copy:
+
+```bash
+cp file1 file2
+```
+
+* Move:
+
+```bash
+mv file1 newname
+```
